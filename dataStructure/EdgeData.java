@@ -14,6 +14,7 @@ public class EdgeData implements edge_data {
 		this.weight=weight;
 		this.info="";
 	}
+	
 	@Override
 	public int getSrc() {
 		return this.src;
