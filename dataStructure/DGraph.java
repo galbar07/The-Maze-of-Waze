@@ -4,14 +4,14 @@ import java.util.*;
 
 
 public class DGraph implements graph{
-	
+
 	static int mcCounter=0;
-	HashMap<Integer, node_data> nodesMap = new HashMap<Integer, node_data>();
-	HashMap<SrcToDest, edge_data> edgesMap = new HashMap<SrcToDest, edge_data>();
-	HashMap<Integer,ArrayList<edge_data>>  nodeNeighbors = new HashMap<Integer,ArrayList<edge_data>>();
+	public HashMap<Integer, node_data> nodesMap = new HashMap<Integer, node_data>();
+	public HashMap<SrcToDest, edge_data> edgesMap = new HashMap<SrcToDest, edge_data>();
+	HashMap<Integer,HashMap<SrcToDest, edge_data>>nodeNeighbors = new HashMap<Integer,HashMap<SrcToDest, edge_data>>();
 
 
-	
+
 	@Override
 	public node_data getNode(int key) {
 		if (nodesMap.containsKey(key))
@@ -30,33 +30,31 @@ public class DGraph implements graph{
 	@Override
 	public void addNode(node_data n) {
 		mcCounter++;
-		nodesMap.put(n.getKey(), n);		
+		nodesMap.put(n.getKey(), n);
+
 	}
 
 	@Override
 	public void connect(int src, int dest, double w) {
 		if(nodesMap.containsKey(src) && nodesMap.containsKey(dest)) {
-		mcCounter++;
-		EdgeData edge= new EdgeData(src, dest, w); 	
-		SrcToDest newEdge = new SrcToDest(src, dest);
-		ArrayList<edge_data> addedEdge = new ArrayList<edge_data>();
+			mcCounter++;
+			EdgeData edge= new EdgeData(src, dest, w); 	
+			SrcToDest newEdge = new SrcToDest(src, dest);
+//			HashMap<SrcToDest, edge_data> neighborHash = new HashMap<SrcToDest,edge_data>();
 			if (!edgesMap.containsKey(newEdge) ) {
-				if (nodeNeighbors.containsKey(src)) {
-					nodeNeighbors.replace(src, addedEdge);						
-					addedEdge=nodeNeighbors.get(src);
-					addedEdge.add(edge);
-				}
-				else {
-					addedEdge.add(edge);
-					nodeNeighbors.put(src, addedEdge);
-				}
 				edgesMap.put(newEdge, edge);
-			}
-			addedEdge.add(edge);
-			nodeNeighbors.putIfAbsent(src,addedEdge);
+
+//				if(!nodeNeighbors.containsKey(src)) {
+//					if (!nodeNeighbors.containsValue(neighborHash)) {
+//						nodeNeighbors.put(src, neighborHash);
+//					}
+//					neighborHash.put(newEdge, edge);
+//					nodeNeighbors.put(src, neighborHash);
+//				}
+							}
 		}
 		//Add run time exception no suck vertices is found
-		
+
 	}
 
 	@Override
@@ -66,28 +64,40 @@ public class DGraph implements graph{
 
 	@Override
 	public Collection<edge_data> getE(int node_id) {
-		ArrayList<edge_data> neighbors	= nodeNeighbors.get(node_id);	
-		return neighbors;
-		
+		HashMap< SrcToDest, edge_data> h = nodeNeighbors.get(node_id);
+		return (Collection<edge_data>) h;
+
 	}
 
 	@Override
 	public node_data removeNode(int key) {
 		if (nodesMap.containsKey(key) && nodeNeighbors.containsKey(key)) {
+			node_data nd = nodesMap.get(key);
 			mcCounter++;
 			nodeNeighbors.remove(key);
 			nodesMap.remove(key);
-			for (int i = 0; i < edgesMap.size(); i++) {
-				//edgesMap.remove();
-			}
+			edgesMap.entrySet().forEach(entry->{
+				if(entry.getValue().getSrc() == key) {
+					SrcToDest rmv = new SrcToDest(key, entry.getValue().getDest());
+					edgesMap.remove(rmv);
+				}
+
+			});
+			return nd;
 		}
 		return null;
 	}
 
 	@Override
 	public edge_data removeEdge(int src, int dest) {
-		//////
-		mcCounter++;
+		SrcToDest src_to_dest= new SrcToDest(src, dest);
+		edge_data ed = edgesMap.get(src_to_dest);
+		if (edgesMap.containsKey(src_to_dest)) {
+			mcCounter++;
+			edgesMap.remove(src_to_dest);
+			nodeNeighbors.get(src).remove(src_to_dest);			
+			return ed;
+		}
 		return null;
 	}
 
@@ -105,16 +115,9 @@ public class DGraph implements graph{
 	public int getMC() {
 		return mcCounter;
 	}
+
+
 	
 	
-	   class SrcToDest{
-		private int src;
-		private int dest;
-		
-		public SrcToDest(int src,int dest) {
-			this.src=src;
-			this.dest=dest;
-		}		
-	}
 
 }

@@ -3,14 +3,15 @@ package dataStructure;
 import utils.Point3D;
 
 public class NodeData implements node_data {
-	private int key=0;
+	static int counter=1;
+	private int key;
 	private Point3D location=null;
 	private double weight=Double.MAX_VALUE;
 	private String info;
 	private int tag=0;
 	
 	public NodeData(Point3D p) { //check which other constructrs are there
-		this.key=key++;
+		this.key=counter++;
 		this.location=p; //need to deep copy p
 		this.weight=Double.MAX_VALUE;
 		this.info=""; //need to check wtf is info
