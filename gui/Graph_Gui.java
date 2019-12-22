@@ -34,7 +34,7 @@ public class Graph_Gui extends JFrame implements ActionListener{
 	
 	private void initGUI() 
 	{
-		this.setSize(10000, 10000);
+		this.setSize(5000, 5000);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		MenuBar menuBar = new MenuBar();
@@ -52,6 +52,7 @@ public class Graph_Gui extends JFrame implements ActionListener{
 	public void paint(Graphics g)
 	{
 		
+		
 			super.paint(g);
 			
 			System.out.println("i is"+i++);
@@ -64,29 +65,23 @@ public class Graph_Gui extends JFrame implements ActionListener{
 		    
 		    g.setColor(Color.RED);
 		   graph.edgesMap.entrySet().forEach(entry->{
-			   NodeData n = (NodeData) graph.nodesMap.get(entry.getKey().src);
-			   NodeData n1 = (NodeData) graph.nodesMap.get(entry.getKey().dest);
-			   Point3D p = new Point3D(n1.getLocation().ix(),n1.getLocation().iy());
-			   Point3D p1 = new Point3D(n.getLocation().ix(),n.getLocation().iy());
-			   g.setColor(Color.YELLOW);
-		       g.fillOval((int)(p1.ix()-13),(int)(p1.y()-13), 10, 10); 
-		       g.setColor(Color.RED);
-			   g.drawLine((int)p.x(), (int)p.y(),(int)p1.x(), (int)p1.y());
-			   g.setColor(Color.BLACK);
-			   g.drawString(Integer.toString((int)entry.getValue().getWeight()),(int)((p.x()+p1.x())/2),(int)((p.y()+p1.y())/2));
+			  
+			 entry.getValue().entrySet().forEach(entry2->{
+				 int num = entry2.getValue().getSrc();
+				 int num2 =entry2.getValue().getDest(); 
+				Point3D p =  graph.nodesMap.get(num).getLocation();
+				Point3D p1 = graph.nodesMap.get(num2).getLocation();
+				g.setColor(Color.YELLOW);
+				g.fillOval((int)(p.ix()+14),(int)(p.y()+14), 10, 10); 
+			    g.setColor(Color.RED);
+				   g.drawLine((int)p.x(), (int)p.y(),(int)p1.x(), (int)p1.y());
+				   g.setColor(Color.BLACK);
+				  g.drawString(Integer.toString((int)entry2.getValue().getWeight()),(int)((p.x()+p1.x())/2),(int)((p.y()+p1.y())/2));
+			 });
 			   
 			   
 			   
-			   
-		   });
-		    
-		    
-		    
-	
-		
-		System.out.println("hopoopS");
-		
-		
+		   });		
 	}
 	
 	
@@ -101,4 +96,5 @@ public class Graph_Gui extends JFrame implements ActionListener{
 	
 	
 
-}
+	}
+	

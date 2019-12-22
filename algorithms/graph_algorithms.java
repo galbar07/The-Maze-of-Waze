@@ -68,5 +68,5 @@ public interface graph_algorithms {
 	 * @param targets
 	 * @return
 	 */
-	public List<node_data> TSP(List<Integer> targets);
+	public List<node_data> TSP (List<Integer> targets);
 }
