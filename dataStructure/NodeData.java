@@ -7,6 +7,7 @@ public class NodeData implements node_data {
 	private int key;
 	private Point3D location=null;
 	private double weight=Double.MAX_VALUE;
+	
 	private String info;
 	private int tag=0;
 	
@@ -42,6 +43,7 @@ public class NodeData implements node_data {
 	@Override
 	public void setWeight(double w) {
 		this.weight=w;
+		//deal with negative weight
 	}
 
 	@Override

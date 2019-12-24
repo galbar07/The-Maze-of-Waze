@@ -1,16 +1,20 @@
 package dataStructure;
 
-import java.util.*; 
-
+import java.util.*;
 
 public class DGraph implements graph{
 
 	static int mcCounter=0;
-	public HashMap<Integer, node_data> nodesMap = new HashMap<Integer, node_data>();
-	public HashMap<Integer,HashMap<Integer,edge_data> > edgesMap = new HashMap<Integer,HashMap<Integer,edge_data> >();
+	public HashMap<Integer, node_data> nodesMap;
+	public HashMap<Integer,HashMap<Integer,edge_data> > edgesMap;
+	
+   //Constructor
+	public DGraph() {
+		 nodesMap = new HashMap<Integer, node_data>();
+		 edgesMap = new HashMap<Integer,HashMap<Integer,edge_data> >();
 
-
-
+	}
+	
 	@Override
 	public node_data getNode(int key) {
 		if (nodesMap.containsKey(key))
@@ -48,10 +52,10 @@ public class DGraph implements graph{
 			innerEdgeHash.put(dest, edgeToInsert);
 			edgesMap.put(src, innerEdgeHash);
 			}
-			
-			
+				
 			
 		}
+		else {throw new RuntimeException("No such dest or src is found");}
 		
 		
 	}
@@ -64,7 +68,9 @@ public class DGraph implements graph{
 
 	@Override
 	public Collection<edge_data> getE(int node_id) {
-		return edgesMap.get(node_id).values();
+		if(edgesMap.containsKey(node_id)) {
+		return edgesMap.get(node_id).values();}
+		return null;
 
 	}
 
@@ -76,12 +82,12 @@ public class DGraph implements graph{
 			nodesMap.remove(key);
 			edgesMap.remove(key);
 			edgesMap.entrySet().forEach(entry->{///return to this remove all the destinon node
-			 
+					
+					if(entry.getValue().containsKey(key)) {
+						entry.getValue().remove(key);
+						
+					}
 			});
-			
-			
-			
-			
 			
 		return nd;	
 		}
