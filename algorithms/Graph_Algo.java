@@ -8,10 +8,14 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Stack;
+
+import com.sun.corba.se.impl.orbutil.graph.NodeData;
+
 import dataStructure.DGraph;
 import dataStructure.edge_data;
 import dataStructure.graph;
@@ -20,7 +24,8 @@ import dataStructure.node_data;
 /**
  * This empty class represents the set of graph-theory algorithms
  * which should be implemented as part of Ex2 - Do edit this class.
- * @author 
+ * @author Eden Reuveni
+ * @author Gal bar
  *
  */
 public class Graph_Algo implements graph_algorithms{
@@ -45,8 +50,6 @@ public class Graph_Algo implements graph_algorithms{
 	public void save(String file_name) {
 		serialize(file_name); 
 	}
-
-
 	@Override
 	public boolean isConnected() {
 		Collection<node_data> forSearch=this.graph_algo.getV();
@@ -87,7 +90,7 @@ public class Graph_Algo implements graph_algorithms{
 		}
 		return List;
 	}
-
+	
 	private void colorWhite(Collection<node_data> v) {
 		for (node_data node : v) {
 			node.setTag(0);
@@ -96,19 +99,17 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		List<node_data> List =  shortestPath(src, dest);
-		return List.size();
+		shortestPath(src, dest);
+		return this.graph_algo.getNode(dest).getWeight();
 	}
 
 	@Override
-	public List<node_data> shortestPath(int src, int dest) {//copy?
+	public List<node_data> shortestPath(int src, int dest) {
+		boolean stop = false;
 		ArrayList<node_data>List = new ArrayList<node_data>();
 		Collection<node_data> dij = this.graph_algo.getV();
-		PriorityQueue<node_data> queue = new PriorityQueue<>(dij.size());
-		//comperator
-
+		PriorityQueue<node_data> queue = new PriorityQueue<node_data>();
 		for (node_data v : dij) {
-
 			v.setWeight(Double.MAX_VALUE);
 			v.setInfo("null");			
 		}
@@ -131,21 +132,28 @@ public class Graph_Algo implements graph_algorithms{
 						ListOfNeighbors.get(i).setWeight(nd.getWeight() + this.graph_algo.getEdge(nd.getKey(), ListOfNeighbors.get(i).getKey()).getWeight());
 						ListOfNeighbors.get(i).setInfo(""+nd.getKey());
 					}
+					if(ListOfNeighbors.get(i).getKey()==dest) {
+						stop = true;
+						break;
+					}
 				}
-
-				String str = "";
-				int search = dest;
-				node_data node = this.graph_algo.getNode(dest);
-				while(!str.equals("null")) {
-					str = node.getInfo();
-					List.add(this.graph_algo.getNode((search)));
-					search = Integer.parseInt(str);	
-					node = this.graph_algo.getNode(search);				
+				if(stop) {
+					break;
 				}
-				//reverse lise here!!
-				List.add(this.graph_algo.getNode(src));
 			}
 		}
+		String str = "";
+		int search = dest;
+		node_data node = this.graph_algo.getNode(dest);
+		if(node.getWeight()== Double.MAX_VALUE)return null;		
+		while(!node.getInfo().equals("null")) {
+			str = node.getInfo();
+			List.add(this.graph_algo.getNode((search)));
+			search = Integer.parseInt(str);	
+			node = this.graph_algo.getNode(search);				
+		}
+		List.add(this.graph_algo.getNode(src));
+		Collections.reverse(List);
 	return List;
 	}
 
@@ -155,32 +163,22 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 	@Override
-	public graph copy() {//For each
+	public graph copy() {
 
 		graph copy = new DGraph();
 		Collection<node_data>Node_copy = this.graph_algo.getV();
 		for (node_data v : Node_copy) {
 			copy.addNode(v);
+		}
+		for (node_data v : Node_copy) {
 			Collection<edge_data>edge_copy = this.graph_algo.getE(v.getKey());
+			if(edge_copy==null) break;
 			for (edge_data E : edge_copy) {
 				copy.connect(v.getKey(), E.getDest(), E.getWeight());
 			}
 			
 			
 		}
-		
-		
-		
-//		Iterator<node_data> itr = Node_copy.iterator();
-//
-//		while(itr.hasNext()) {//Try for each	
-//			copy.addNode(itr.next());
-//			Collection<edge_data>edge_copy =this.graph_algo.getE(itr.next().getKey());
-//			Iterator<edge_data>itr_edge = edge_copy.iterator();
-//			while(itr_edge.hasNext()) {
-//				copy.connect(itr.next().getKey(), itr_edge.next().getDest(), itr_edge.next().getWeight());
-//			}
-//		}
 		return copy;
 	}
 
@@ -213,7 +211,6 @@ public class Graph_Algo implements graph_algorithms{
 			try {
 				graph_algo = (DGraph)in.readObject();
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 			in.close(); 
@@ -226,6 +223,10 @@ public class Graph_Algo implements graph_algorithms{
 
 
 	}
+	
+	
+	
+
 
 
 

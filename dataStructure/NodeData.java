@@ -2,12 +2,11 @@ package dataStructure;
 
 import utils.Point3D;
 
-public class NodeData implements node_data {
+public class NodeData implements node_data, Comparable<node_data> {
 	static int counter=1;
 	private int key;
 	private Point3D location=null;
 	private double weight=Double.MAX_VALUE;
-	
 	private String info;
 	private int tag=0;
 	
@@ -42,8 +41,9 @@ public class NodeData implements node_data {
 
 	@Override
 	public void setWeight(double w) {
+		if (w<0)
+			throw new RuntimeException("The weight must be positive");
 		this.weight=w;
-		//deal with negative weight
 	}
 
 	@Override
@@ -64,6 +64,17 @@ public class NodeData implements node_data {
 	@Override
 	public void setTag(int t) {
 		this.tag=t;
+	}
+
+
+	@Override
+	public int compareTo(node_data n) {
+		if (this.getWeight()>n.getWeight())
+			return 1;
+		else if (this.getWeight()<n.getWeight())
+			return -1;
+		else
+			return 0;
 	}
 	
 
