@@ -45,7 +45,7 @@ public class Graph_Gui extends JFrame implements ActionListener,MouseListener{
 		StdDraw.isMousePressed();
 		
 		
-		StdDraw.setCanvasSize(800,800);
+		StdDraw.setCanvasSize(1000,1000);
 		Font font = new Font("Arial", Font.BOLD, 20);
 
 		double max_x = Double.MIN_VALUE;
@@ -87,7 +87,7 @@ public class Graph_Gui extends JFrame implements ActionListener,MouseListener{
 					Point3D p4 = new Point3D((int)((p1.x()+p2.x())/2),(int)((p1.y()+p2.y())/2));
 					
 					
-					for(int i=0;i<3;i++) {
+					for(int i=0;i<2;i++) {
 						Point3D p5 = new Point3D((int)(p4.x()+p1.x())/2,(int)(p4.y()+p1.y())/2);
 						p4 = new Point3D(p5);
 					}

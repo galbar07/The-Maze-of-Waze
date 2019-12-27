@@ -25,7 +25,6 @@ class Test_DGraph {
 			g.connect(nd1.getKey(), nd.getKey(), 0);
 			
 		}
-		Graph_Gui gui = new Graph_Gui(g);
 	 
 	}
 

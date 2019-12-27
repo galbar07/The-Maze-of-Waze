@@ -14,7 +14,7 @@ public class NodeData implements node_data, Comparable<node_data> {
 		this.key=counter++;
 		this.location=p; //need to deep copy p
 		this.weight=Double.MAX_VALUE;
-		this.info=""; //need to check wtf is info
+		this.info=""; 
 		this.tag=0;	
 	}
 	
