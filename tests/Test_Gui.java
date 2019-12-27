@@ -27,6 +27,20 @@ public class Test_Gui {
         Point3D p3 = new Point3D(10,10,0);
         NodeData n3 = new NodeData(p3);
         g.addNode(n3);
+        
+       
+        Point3D p4 = new Point3D(102,140,0);
+        NodeData n4 = new NodeData(p4);
+        g.addNode(n4);
+        
+        Point3D p5 = new Point3D(530,430,0);
+        NodeData n5 = new NodeData(p5);
+        g.addNode(n5);
+        
+        Point3D p6 = new Point3D(60,60,0);
+        NodeData n6 = new NodeData(p6);
+        g.addNode(n6);
+        
 //      Point3D p3 = new Point3D(250,400,0);
 //      NodeData n2 = new NodeData(p3);
 //      g.addNode(n2);
@@ -36,16 +50,26 @@ public class Test_Gui {
         
         
           g.connect(1, 2, 20);
-          g.connect(3, 1, 200);
-        //  g.connect(2, 3, 100);
-      //  g.removeEdge(3, 1);
+          g.connect(2, 3, 10);
+          g.connect(3, 1, 39);
+          g.connect(4, 5, 1);
+          g.connect(5, 2, 1);
+          g.connect(1, 5, 1);
+          g.connect(4, 1, 1);
+          g.connect(4, 2, 1);
+          g.connect(4, 3, 1);
+
+
+
+          
+
+
         
         Graph_Algo gr = new Graph_Algo();
 
         gr.init(g);
         System.out.println(gr.isConnected());
 		
-		System.out.println("before");
 		
 		List<node_data>print =  gr.shortestPath(1, 2);
 		for (int i = 0; i < print.size(); i++) {

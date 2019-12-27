@@ -36,7 +36,7 @@ public class DGraph implements graph{
 
 	@Override
 	public void connect(int src, int dest, double w) {
-		if(nodesMap.containsKey(src) && nodesMap.containsKey(dest)&&w>0) {
+		if(nodesMap.containsKey(src) && nodesMap.containsKey(dest)&&w>=0) {
 			mcCounter++;
 			EdgeData edgeToInsert = new EdgeData(src, dest, w);
 			if(edgesMap.containsKey(src)) {

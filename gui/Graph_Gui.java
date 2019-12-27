@@ -1,6 +1,7 @@
 package gui;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Menu;
 import java.awt.MenuBar;
@@ -41,8 +42,12 @@ public class Graph_Gui extends JFrame implements ActionListener,MouseListener{
 	private void initGUI() 
 	{
 		
+		StdDraw.isMousePressed();
+		
 		
 		StdDraw.setCanvasSize(800,800);
+		Font font = new Font("Arial", Font.BOLD, 20);
+
 		double max_x = Double.MIN_VALUE;
 		double max_y = Double.MIN_VALUE;
 		Collection<node_data>search = this.graph.getV();
@@ -57,9 +62,12 @@ public class Graph_Gui extends JFrame implements ActionListener,MouseListener{
 		StdDraw.setPenRadius(0.02);
 		Collection<node_data> Paint_node = this.graph.getV();
 		for (node_data v : Paint_node) {
-			StdDraw.point(v.getLocation().ix(), v.getLocation().iy());
+			StdDraw.setPenColor(Color.black);
+			StdDraw.point(v.getLocation().x(), v.getLocation().y());
+			StdDraw.setPenColor(Color.BLUE);
+			StdDraw.setFont(font);
+			StdDraw.text(v.getLocation().x(), v.getLocation().y()+7, Integer.toString(v.getKey()));
 		}
-		StdDraw.setPenColor(Color.RED);
 		StdDraw.setPenRadius(0.005);
 		for (node_data v : Paint_node) {
 			Collection<edge_data> Paint_edges = this.graph.getE(v.getKey());
@@ -69,10 +77,22 @@ public class Graph_Gui extends JFrame implements ActionListener,MouseListener{
 					Point3D p1 = pointreturn(E.getDest());
 					Point3D p2 = pointreturn(E.getSrc());
 				    if(p1!=null && p2!=null) {
-					StdDraw.line((int)p1.x(), (int)p2.y(),(int)p2.x(), (int)p1.y());
-					StdDraw.text((int)((p1.x()+p2.x())/2),(int)((p1.y()+p2.y())/2)+3, Integer.toString((int)E.getWeight()));
-					//g.drawString(Integer.toString((int)E.getWeight()), (int)((p1.x()+p2.x())/2),(int)((p1.y()+p2.y())/2));
-				    }
+				    	StdDraw.setPenRadius(0.005);
+				    	StdDraw.setPenColor(Color.BLACK);
+					StdDraw.line(p1.x(), p1.y(),p2.x(), p2.y());
+					StdDraw.text((int)((p1.x()+p2.x())/2),(int)((p1.y()+p2.y())/2), Integer.toString((int)E.getWeight()));
+					StdDraw.setPenColor(Color.PINK);
+					StdDraw.setPenRadius(0.02);
+					
+					Point3D p4 = new Point3D((int)((p1.x()+p2.x())/2),(int)((p1.y()+p2.y())/2));
+					
+					
+					for(int i=0;i<3;i++) {
+						Point3D p5 = new Point3D((int)(p4.x()+p1.x())/2,(int)(p4.y()+p1.y())/2);
+						p4 = new Point3D(p5);
+					}
+					StdDraw.point(p4.x(),p4.y());
+			    }
 				}
 		   
 			
@@ -85,24 +105,8 @@ public class Graph_Gui extends JFrame implements ActionListener,MouseListener{
 		
 		
 		
-		
-//		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		this.pack();
-//		this.setSize(new Dimension(2000,2000));
-//		MenuBar menuBar = new MenuBar();
-//		Menu menu = new Menu("Menu");
-//		menuBar.add(menu);
-//		this.setMenuBar(menuBar);
-//		
-//		MenuItem item1 = new MenuItem("Item 1");
-//		item1.addActionListener(this);
-//		
-//		MenuItem item2 = new MenuItem("Item 2");
-//		item2.addActionListener(this);
-//		
-//		menu.add(item1);
-//		menu.add(item2);
-//		this.addMouseListener(this);
+
+
 		
 	
 	
@@ -166,7 +170,7 @@ public class Graph_Gui extends JFrame implements ActionListener,MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		
+		System.out.println("mouse enertrd");
 	}
 
 	@Override
@@ -182,7 +186,7 @@ public class Graph_Gui extends JFrame implements ActionListener,MouseListener{
 		this.graph.addNode(n);
 		System.out.println("x is" + e.getX());
 		System.out.println("y is" + e.getY());
-		repaint();
+		initGUI();
 		
 	}
 
