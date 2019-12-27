@@ -1,5 +1,5 @@
 # The Maze of Waze:
-![Test Image 1](waze_maze.JPG)
+![Image](waze_maze.PNG)
 
 
 
