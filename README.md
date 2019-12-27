@@ -10,10 +10,29 @@
 
 #
 #             About
-
+```
 This program represent undirected graph which composed of Vertices and Edges, and let the user build his own graph and preform varies algorithams on his own graph such as find the shorthest path ,  is the graph connected and more!! 
+```
+
+#  DataStructure
+The datastructure that the graph is composed of is 2 hashmaps one for vartices and the other for edges 
+```
+Example for triangle graph:
+
+ Vartices hashmap                     edges hashmap                       
+|   key |  value  |                |  key |  key  |   value  | 
+|-------|---------|                |------|-------|----------|
+|   1   |    1    |                |   1  |   2   |    1 > 2 |
+|   2   |    2    |                |   2  |   3   |    2 > 3 |
+|   3   |    3    |                |   3  |   1   |    3 > 1 |
+|-------|---------|                |------|-------|----------|
+
+
 
 ```
+
+
+
 
 
 
