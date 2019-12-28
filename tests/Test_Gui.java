@@ -33,15 +33,7 @@ public class Test_Gui {
         
         Point3D p6 = new Point3D(310,250,0);
         NodeData n6 = new NodeData(p6);
-        g.addNode(n6);
-        
-//      Point3D p3 = new Point3D(250,400,0);
-//      NodeData n2 = new NodeData(p3);
-//      g.addNode(n2);
-        
-  
-        
-        
+        g.addNode(n6);   
         
           g.connect(1, 2, 20);
           g.connect(2, 3, 10);
@@ -53,12 +45,6 @@ public class Test_Gui {
           g.connect(4, 2, 34);
           g.connect(4, 3, 11);
 
-
-
-          
-
-
-        
         Graph_Algo gr = new Graph_Algo();
 
         gr.init(g);
@@ -69,7 +55,6 @@ public class Test_Gui {
 		for (int i = 0; i < print.size(); i++) {
 			System.out.println(print.get(i).getKey() + ",");
 		}
-		//System.out.println(node_to_print.toString());
 		
 		
 		Graph_Gui gui = new Graph_Gui(gr);
