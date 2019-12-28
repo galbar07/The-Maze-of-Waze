@@ -74,7 +74,7 @@ public class Test_Gui {
 		
 		Graph_Gui gui = new Graph_Gui(gr);
 
-		//gui.setVisible(true);
+		gui.setVisible(true);
 		
 		
 		

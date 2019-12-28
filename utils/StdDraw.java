@@ -75,6 +75,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import algorithms.Graph_Algo;
+
 /**
  *  The {@code StdDraw} class provides a basic capability for
  *  creating drawings with your programs. It uses a simple graphics model that
@@ -716,12 +718,18 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	private static JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("File");
+		JMenu Algorithams = new JMenu("Algorithams");
+
 		menuBar.add(menu);
-		JMenuItem menuItem1 = new JMenuItem(" Save...   ");
+		menuBar.add(Algorithams);
+		JMenuItem menuItem1 = new JMenuItem("Save");
 		menuItem1.addActionListener(std);
+		JMenuItem menuItem2 = new JMenuItem("Is connected?");
+		menuItem2.addActionListener(std);
 		menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
 				Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 		menu.add(menuItem1);
+	    Algorithams.add(menuItem2);
 		return menuBar;
 	}
 
@@ -1650,16 +1658,28 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 
 	/**
-	 * This method cannot be called directly.
+	 * This method cannot be called directly.gal
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		String str = e.getActionCommand();
+		System.out.println(str);
+		if(str.equals("Save")) {
 		FileDialog chooser = new FileDialog(StdDraw.frame, "Use a .png or .jpg extension", FileDialog.SAVE);
 		chooser.setVisible(true);
 		String filename = chooser.getFile();
 		if (filename != null) {
 			StdDraw.save(chooser.getDirectory() + File.separator + chooser.getFile());
 		}
+	
+		}
+		if(str.equals("Is connected?")) {
+			
+		   
+			
+		}
+		
+		
 	}
 
 
