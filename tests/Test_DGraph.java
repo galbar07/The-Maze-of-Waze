@@ -16,8 +16,7 @@ import gui.Graph_Gui;
 import utils.Point3D;
 
 class Test_DGraph {
-	private NodeData srcNode;
-	private NodeData destNode;
+	
 	private Point3D pSrc;
 	private Point3D pDest;
 	private EdgeData ed;
@@ -35,39 +34,58 @@ class Test_DGraph {
 			g.addNode(nd);
 			g.addNode(nd1);
 			g.connect(nd1.getKey(), nd.getKey(), 0);
-			
+
 		}
 	 
 	}
 	
 	@BeforeEach
 	void buildEdge(){
-		graph=new DGraph();
+		this.graph=new DGraph();
 		this.pSrc=new Point3D(1,1,1);
 		this.pDest=new Point3D(3,3,3);
-		this.srcNode=new NodeData(pSrc);
-		this.destNode=new NodeData(pDest);
-		graph.addNode(srcNode);
-		graph.addNode(destNode);
-		this.ed=new EdgeData(srcNode.getKey(), destNode.getKey(), 12);
-		graph.connect(srcNode.getKey(), destNode.getKey(), 12);
+		
+		
 	}
 	
 	@Test
 	void testGetNode() {
-		if (this.graph.getNode(5)!=srcNode)
+		NodeData srcNode=new NodeData(pSrc);
+		NodeData destNode=new NodeData(pDest);
+		graph=new DGraph();
+		graph.addNode(srcNode);
+		graph.addNode(destNode);
+		this.ed=new EdgeData(srcNode.getKey(), destNode.getKey(), 12);
+		graph.connect(srcNode.getKey(), destNode.getKey(), 12);
+		if (this.graph.getNode(srcNode.getKey())!=srcNode)
 			fail("getNode is not working");
 			
 	}
 	
 	@Test
 	void testGetEdge() {
-		if (this.graph.getEdge(srcNode.getKey(), destNode.getKey())!=this.ed)
+		NodeData srcNode=new NodeData(pSrc);
+		NodeData destNode=new NodeData(pDest);
+		graph.addNode(srcNode);
+		graph.addNode(destNode);
+		graph.connect(srcNode.getKey(), destNode.getKey(), 12);
+		this.ed=new EdgeData(srcNode.getKey(), destNode.getKey(), 12);
+		if (this.graph.getEdge(srcNode.getKey(), destNode.getKey()).getSrc()!=this.ed.getSrc())
+			fail ("getEdge is not working");
+		if (this.graph.getEdge(srcNode.getKey(), destNode.getKey()).getDest()!=this.ed.getDest())
 			fail ("getEdge is not working");
 	}
 	
 	@Test 
 	void testAddNode() {
+		NodeData srcNode=new NodeData(pSrc);
+		NodeData destNode=new NodeData(pDest);
+		graph=new DGraph();
+
+		graph.addNode(srcNode);
+		graph.addNode(destNode);
+		this.ed=new EdgeData(srcNode.getKey(), destNode.getKey(), 12);
+		graph.connect(srcNode.getKey(), destNode.getKey(), 12);
 		NodeData nd=new NodeData(new Point3D(5,5,5));
 		this.graph.addNode(nd);
 		if (this.graph.getV().size()!=3)
@@ -78,6 +96,7 @@ class Test_DGraph {
 	void testConnect() {
 		NodeData n = new NodeData(new Point3D(2,2,2));
 		NodeData n1 = new NodeData(new Point3D(4,4,4));
+		
 		this.graph.addNode(n);
 		this.graph.addNode(n1);
 		this.graph.connect(n.getKey(), n1.getKey(), 1);
@@ -87,18 +106,43 @@ class Test_DGraph {
 	
 	@Test
 	void testGetV() {
+		NodeData srcNode=new NodeData(pSrc);
+		NodeData destNode=new NodeData(pDest);
+		graph=new DGraph();
+
+		graph.addNode(srcNode);
+		graph.addNode(destNode);
+		this.ed=new EdgeData(srcNode.getKey(), destNode.getKey(), 12);
+		graph.connect(srcNode.getKey(), destNode.getKey(), 12);
 		if (this.graph.getV().size()!=2)
 			fail ("getV function is not working");
 	}
 
 	@Test
 	void testGetE() {
+		NodeData srcNode=new NodeData(pSrc);
+		NodeData destNode=new NodeData(pDest);
+		
+		graph=new DGraph();
+
+		graph.addNode(srcNode);
+		graph.addNode(destNode);
+		this.ed=new EdgeData(srcNode.getKey(), destNode.getKey(), 12);
+		graph.connect(srcNode.getKey(), destNode.getKey(), 12);
 		if (this.graph.getE(srcNode.getKey()).size()!=1)
 			fail ("getE function is not working");
 	}
 	
 	@Test
 	void testRemoveNode() {
+		NodeData srcNode=new NodeData(pSrc);
+		NodeData destNode=new NodeData(pDest);
+		graph=new DGraph();
+
+		graph.addNode(srcNode);
+		graph.addNode(destNode);
+		this.ed=new EdgeData(srcNode.getKey(), destNode.getKey(), 12);
+		graph.connect(srcNode.getKey(), destNode.getKey(), 12);
 		this.graph.removeNode(srcNode.getKey());
 		if (this.graph.getV().size()!=1)
 			fail("removeNode function is not working");
@@ -106,6 +150,14 @@ class Test_DGraph {
 	
 	@Test
 	void testRemoveEdge() {
+		NodeData srcNode=new NodeData(pSrc);
+		NodeData destNode=new NodeData(pDest);
+		graph=new DGraph();
+
+		graph.addNode(srcNode);
+		graph.addNode(destNode);
+		this.ed=new EdgeData(srcNode.getKey(), destNode.getKey(), 12);
+		graph.connect(srcNode.getKey(), destNode.getKey(), 12);
 		this.graph.removeEdge(srcNode.getKey(), destNode.getKey());
 		if (this.graph.getE(srcNode.getKey()).size()!=0)
 			fail("removeEdge function is not working");
@@ -113,6 +165,14 @@ class Test_DGraph {
 	
 	@Test
 	void testNodeSizeAndEdgeSize() {
+		NodeData srcNode=new NodeData(pSrc);
+		NodeData destNode=new NodeData(pDest);
+		graph=new DGraph();
+
+		graph.addNode(srcNode);
+		graph.addNode(destNode);
+		this.ed=new EdgeData(srcNode.getKey(), destNode.getKey(), 12);
+		graph.connect(srcNode.getKey(), destNode.getKey(), 12);
 		if (this.graph.nodeSize()!=2)
 			fail("nodeSize function is not working");
 			if (this.graph.edgeSize()!=1)

@@ -26,7 +26,7 @@ class Test_Graph_Algo {
 	private Graph_Algo gr;
 	
 	@BeforeEach
-	void buildEdge(){
+	void buildGraph(){
 		graph=new DGraph();
 		this.pSrc=new Point3D(1,1,1);
 		this.pDest=new Point3D(3,3,3);
@@ -71,9 +71,16 @@ class Test_Graph_Algo {
 	
 	@Test
 	void testCopy() {
-		Graph_Algo g=new Graph_Algo();
-		g=(Graph_Algo) this.gr.copy();
-		if (!g.equals(gr))
-			fail("copt function is not working");
+	    this.gr.init(graph);
+		dataStructure.graph g=new DGraph();
+		g=this.gr.copy();
+		if(this.graph.getNode(srcNode.getKey())!=g.getNode(srcNode.getKey()))
+			fail("copy function is not working");
+		if(this.graph.getNode(destNode.getKey())!=g.getNode(destNode.getKey()))
+			fail("copy function is not working");
+		if(this.graph.getEdge(srcNode.getKey(),destNode.getKey()).getSrc()!=g.getEdge(srcNode.getKey(),destNode.getKey()).getSrc())
+			fail("copy function is not working");
+		if(this.graph.getEdge(srcNode.getKey(),destNode.getKey()).getDest()!=g.getEdge(srcNode.getKey(),destNode.getKey()).getDest())
+			fail("copy function is not working");
 	}
 }

@@ -15,6 +15,7 @@ public class EdgeData implements edge_data {
 		this.info="";
 	}
 	
+
 	@Override
 	public int getSrc() {
 		return this.src;

@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -13,6 +14,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Stack;
+
+import javax.xml.crypto.NodeSetData;
+
 import dataStructure.DGraph;
 import dataStructure.edge_data;
 import dataStructure.graph;
@@ -32,21 +36,35 @@ public class Graph_Algo implements graph_algorithms{
 	public Graph_Algo() {
 		graph_algo = new DGraph();
 	}
-
+	/**
+	 * Init this set of algorithms on the parameter - graph.
+	 * @param g
+	 */
 	@Override
 	public void init(graph g) {
 		graph_algo = (DGraph) g;
 	}
-
+	/**
+	 * Init a graph from file
+	 * @param file_name
+	 */
 	@Override
 	public void init(String file_name) {
 		deserialize(file_name);
 	}
-
+	/** Saves the graph to a file.
+	 * 
+	 * @param file_name
+	 */
 	@Override
 	public void save(String file_name) {
 		serialize(file_name); 
 	}
+	/**
+	 * Returns true if and only if (iff) there is a valid path from EVREY node to each
+	 * other node. NOTE: assume directional graph - a valid path (a-->b) does NOT imply a valid path (b-->a).
+	 * @return the boolean value of the question
+	 */
 	@Override
 	public boolean isConnected() {
 		Collection<node_data> forSearch=this.graph_algo.getV();
@@ -57,6 +75,14 @@ public class Graph_Algo implements graph_algorithms{
 		}
 		return true;
 	}
+	
+	/**
+	 * Determines which of the nodes in the graph are 
+	 * connected by an edge, meaning- this node's neighbors
+	 * and counts them
+	 * @param v the given node
+	 * @return the amount of neighbors
+	 */
 	private int myNeighbors(node_data v) {
 		int ans=0;
 		colorWhite(this.graph_algo.getV());
@@ -75,6 +101,12 @@ public class Graph_Algo implements graph_algorithms{
 		}
 		return ans;
 	}
+	/**
+	 *  Determines which of this node's neighbors is white,
+	 *  meaning- not been visited, with tag=0
+	 * @param n the given node
+	 * @return a list of all this node neighbors
+	 */
 	private ArrayList<node_data> allWhiteNeighbors(node_data n) {
 		Collection<edge_data> edges = this.graph_algo.getE(n.getKey());
 		ArrayList<node_data>List= new ArrayList<node_data>();
@@ -87,19 +119,36 @@ public class Graph_Algo implements graph_algorithms{
 		}
 		return List;
 	}
-	
+	/**
+	 *Colors all this node's neighbors white, sets tag to 0
+	 * @param v the given node
+	 */
 	private void colorWhite(Collection<node_data> v) {
 		for (node_data node : v) {
 			node.setTag(0);
 		}
 	}
-
+	/**
+	 * Returns the length of the shortest path between src to dest
+	 * @param src - start node
+	 * @param dest - end (target) node
+	 * @return the distance of the shortest path between src and dest
+	 */
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		shortestPath(src, dest);
+		List <node_data> listFromShortest=shortestPath(src, dest);
+		if (listFromShortest==null)
+			return Double.MIN_VALUE;
 		return this.graph_algo.getNode(dest).getWeight();
 	}
-
+	/**
+	 * Returns the the shortest path between src to dest - as an ordered List of nodes:
+	 * src--> n1-->n2-->...dest
+	 * see: https://en.wikipedia.org/wiki/Shortest_path_problem
+	 * @param src - start node
+	 * @param dest - end (target) node
+	 * @return
+	 */
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
 		boolean stop = false;
@@ -151,15 +200,42 @@ public class Graph_Algo implements graph_algorithms{
 		}
 		List.add(this.graph_algo.getNode(src));
 		Collections.reverse(List);
+		if (!List.contains(this.graph_algo.getNode(dest)))	
+			return null;
 		return List;
 	}
-
-	@Override//1-6 {1,2,3,4,5,6}
-	//
+	/**
+	 * Computes a relatively short path which visit each node in the targets List.
+	 * Note: this is NOT the classical traveling salesman problem, 
+	 * as you can visit a node more than once, and there is no need to return to source node - 
+	 * just a simple path going over all nodes in the list. 
+	 * @param targets
+	 * @return a list of the nodes visited in this path
+	 */
+	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		return null;
+		if (targets.isEmpty())
+			return null;
+		Graph_Algo gr=new Graph_Algo();
+		gr.init(this.graph_algo);
+		Collections.sort(targets);
+		List <node_data> nodesFromTSP = new ArrayList<node_data>();
+		int firstNode = targets.get(0);
+		for (int i = 1; i < targets.size(); i++) {
+			int nextNode=targets.get(i);
+			if (gr.shortestPath(firstNode, nextNode)==null)
+				return null;
+			nodesFromTSP.addAll(gr.shortestPath(firstNode, nextNode));
+			nodesFromTSP.remove(graph_algo.getNode(nextNode));
+			firstNode=nextNode;
+		}
+		nodesFromTSP.addAll(gr.shortestPath(firstNode, firstNode));
+		return nodesFromTSP;
 	}
-
+	/** 
+	 * Compute a deep copy of this graph.
+	 * @return the copied graph
+	 */
 	@Override
 	public graph copy() {
 
@@ -179,7 +255,10 @@ public class Graph_Algo implements graph_algorithms{
 		}
 		return copy;
 	}
-
+/**
+ * 
+ * @param file_name
+ */
 
 	private void serialize(String file_name) {
 		try
@@ -198,7 +277,10 @@ public class Graph_Algo implements graph_algorithms{
 			System.out.println("IOException is caught"); 
 		}               
 	}
-
+/**
+ * 
+ * @param file_name
+ */
 	private void deserialize(String file_name) {
 		graph_algo = new DGraph();
 		try
@@ -221,14 +303,6 @@ public class Graph_Algo implements graph_algorithms{
 
 
 	}
-	
-	
-	
-
-
-
-
-
 }
 
 
