@@ -152,6 +152,8 @@ public class Graph_Algo implements graph_algorithms{
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
 		boolean stop = false;
+		if (this.graph_algo.getNode(src)==null || (this.graph_algo.getNode(dest)==null))
+				return null;
 		ArrayList<node_data>List = new ArrayList<node_data>();
 		Collection<node_data> dij = this.graph_algo.getV();
 		PriorityQueue<node_data> queue = new PriorityQueue<node_data>();
@@ -191,7 +193,8 @@ public class Graph_Algo implements graph_algorithms{
 		String str = "";
 		int search = dest;
 		node_data node = this.graph_algo.getNode(dest);
-		if(node.getWeight()== Double.MAX_VALUE)return null;		
+		if(node.getWeight()== Double.MAX_VALUE)
+			return null;		
 		while(!node.getInfo().equals("null")) {
 			str = node.getInfo();
 			List.add(this.graph_algo.getNode((search)));
@@ -209,7 +212,7 @@ public class Graph_Algo implements graph_algorithms{
 	 * Note: this is NOT the classical traveling salesman problem, 
 	 * as you can visit a node more than once, and there is no need to return to source node - 
 	 * just a simple path going over all nodes in the list. 
-	 * @param targets
+	 * @param targets the given list of the nodes wanted to go through
 	 * @return a list of the nodes visited in this path
 	 */
 	@Override
@@ -218,7 +221,6 @@ public class Graph_Algo implements graph_algorithms{
 			return null;
 		Graph_Algo gr=new Graph_Algo();
 		gr.init(this.graph_algo);
-		Collections.sort(targets);
 		List <node_data> nodesFromTSP = new ArrayList<node_data>();
 		int firstNode = targets.get(0);
 		for (int i = 1; i < targets.size(); i++) {
@@ -259,7 +261,7 @@ public class Graph_Algo implements graph_algorithms{
  * 
  * @param file_name
  */
-
+	//add info here
 	private void serialize(String file_name) {
 		try
 		{    
@@ -278,9 +280,10 @@ public class Graph_Algo implements graph_algorithms{
 		}               
 	}
 /**
- * 
+ *
  * @param file_name
  */
+	//add info here
 	private void deserialize(String file_name) {
 		graph_algo = new DGraph();
 		try

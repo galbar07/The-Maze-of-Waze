@@ -240,27 +240,29 @@ public class Graph_Gui extends JFrame implements ActionListener, MouseListener {
 		List<Integer>list = new ArrayList<Integer>();
 		for(int i=0;i<key;i++) {
 			String num2 = JOptionPane.showInputDialog(Show,"Enter vertices:");
-			int key2 = Integer.parseInt(num);
+			int key2 = Integer.parseInt(num2);
 			list.add(key2);
 		}
 		List<node_data>tspList = gr.TSP(list);
 		String res="";
 		if(tspList==null) {
-			JOptionPane.showMessageDialog(Show,"There is no path between all nodes you entered");	
-		}
-		for(int i=0;i<tspList.size();i++) {
+			JOptionPane.showMessageDialog(Show,"There is no path between all nodes you entered");
 
-			if(i==tspList.size()-1) {
-				res+=""+tspList.get(i).getKey();
-			}
-			else {
-				res+=""+tspList.get(i).getKey()+"->";
-			}
+		} 
+		else {
+			for(int i=0;i<tspList.size();i++) {
 
+				if(i==tspList.size()-1) {
+					res+=""+tspList.get(i).getKey();
+				}
+				else {
+					res+=""+tspList.get(i).getKey()+"->";
+				}
+			}
+			JOptionPane.showMessageDialog(Show,"The Graph relatively short path between the vertices you entered is: " + res);	
 		}
-		JOptionPane.showMessageDialog(Show,"The Graph relatively short path between the vertices you entered is: " + res);	
 	}
-	
+
 	private Point3D pointreturn(int key) {
 		Collection<node_data> Paint_node = this.graph.getV();
 		for (node_data v : Paint_node) {
@@ -270,7 +272,7 @@ public class Graph_Gui extends JFrame implements ActionListener, MouseListener {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 
