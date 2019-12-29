@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +18,7 @@ import dataStructure.DGraph;
 import dataStructure.EdgeData;
 import dataStructure.NodeData;
 import dataStructure.node_data;
+import gui.Graph_Gui;
 import utils.Point3D;
 
 class Test_Graph_Algo {
@@ -31,14 +33,14 @@ class Test_Graph_Algo {
 	@BeforeEach
 	void buildGraph(){
 		graph=new DGraph();
-		this.pSrc=new Point3D(1,1,1);
-		this.pDest=new Point3D(3,3,3);
+		this.pSrc=new Point3D(1,1);
+		this.pDest=new Point3D(3,3);
 		this.srcNode=new NodeData(pSrc);
 		this.destNode=new NodeData(pDest);
 		graph.addNode(srcNode);
 		graph.addNode(destNode);
 		graph.connect(srcNode.getKey(), destNode.getKey(), 12);
-		this.nd=new NodeData(new Point3D(2,2,2));
+		this.nd=new NodeData(new Point3D(2,2));
 		this.graph.addNode(nd);
 		this.graph.connect(destNode.getKey(),nd.getKey(), 3);
 		this.graph.connect(nd.getKey(),srcNode.getKey(), 4);
@@ -113,4 +115,22 @@ class Test_Graph_Algo {
 		if(this.graph.getEdge(srcNode.getKey(),destNode.getKey()).getDest()!=g.getEdge(srcNode.getKey(),destNode.getKey()).getDest())
 			fail("copy function is not working");
 	}
+	
+	
+	
+	
+	
+	@Test
+	void testSave() {
+		
+		Graph_Gui g = new Graph_Gui(graph);
+		g.setVisible(true);
+	}
+	
+	
+//	@AfterAll
+//	void testInit() {
+//		gr.init("test.txt");
+//	}
+	
 }
