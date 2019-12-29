@@ -15,11 +15,11 @@ public class Test_Gui {
 	public static void main(String[] args) {
         DGraph g = new DGraph();
 		
-        Point3D p1 = new Point3D(100,200,0);
+        Point3D p1 = new Point3D(-200,200,0);
         NodeData n = new NodeData(p1);
         g.addNode(n);
         
-        Point3D p2 = new Point3D(400,200,0);
+        Point3D p2 = new Point3D(100,-100,0);
         NodeData n1 = new NodeData(p2);
         g.addNode(n1);
         
@@ -29,36 +29,11 @@ public class Test_Gui {
         NodeData n3 = new NodeData(p3);
         g.addNode(n3);
         
-        
-        Point3D p4 = new Point3D(100,253,0);
-        NodeData n4 = new NodeData(p4);
-        g.addNode(n4);
-
-        
-        Point3D p5 = new Point3D(200,270,0);
-        NodeData n5 = new NodeData(p5);
-        g.addNode(n5);
-        
-        /* 
-        Point3D p6 = new Point3D(310,250,0);
-        NodeData n6 = new NodeData(p6);
-        g.addNode(n6);   
-        */
-          g.connect(1, 2, 20);
-          g.connect(3, 1, 9);
-          g.connect(2, 3, 10);
-          g.connect(4, 5, 24);
-          g.connect(5, 2, 16);
-          g.connect(1, 5, 8);
-          g.connect(4, 1, 10);
-          g.connect(4, 2, 3);
-          g.connect(4, 3, 11);
-
-        Graph_Algo gr = new Graph_Algo();
-
-        gr.init(g);
+        g.connect(1, 2, 10);
+        g.connect(2, 3, 40);
+        g.connect(3, 1, 100);
       
-		Graph_Gui gui = new Graph_Gui(gr);
+		Graph_Gui gui = new Graph_Gui(g);
 
 		gui.setVisible(true);
 		

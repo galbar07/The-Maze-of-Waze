@@ -14,7 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Stack;
-
 import javax.xml.crypto.NodeSetData;
 
 import dataStructure.DGraph;
@@ -29,9 +28,13 @@ import dataStructure.node_data;
  * @author Gal bar
  *
  */
-public class Graph_Algo implements graph_algorithms{
+public class Graph_Algo implements graph_algorithms,java.io.Serializable{
 
-	public graph graph_algo;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8972207312025958107L;
+	 graph graph_algo;
 
 	public Graph_Algo() {
 		graph_algo = new DGraph();

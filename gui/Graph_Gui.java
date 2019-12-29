@@ -38,11 +38,6 @@ public class Graph_Gui extends JFrame implements ActionListener, MouseListener {
 		initGUI();
 	}
 
-	public Graph_Gui(Graph_Algo gr) {
-		this.graph = gr.graph_algo;
-		initGUI();
-	}
-
 	private void initGUI()  
 	{	
 		this.setSize(600, 600);
