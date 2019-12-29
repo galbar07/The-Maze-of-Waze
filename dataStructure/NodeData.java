@@ -14,9 +14,13 @@ public class NodeData implements node_data, Comparable<node_data> {
 	 * Constructor to make a node from a given point (of type Poind3D)
 	 * @param p the given point
 	 */
-	public NodeData(Point3D p) { //check which other constructrs are there
+	public NodeData(Point3D p) { 
 		this.key=counter++;
-		this.location=p; //need to deep copy p
+		double x=p.x();
+		double y=p.y();
+		double z=p.z();
+		this.location=new Point3D(x,y,z);
+		//need to deep copy p
 		this.weight=Double.MAX_VALUE;
 		this.info=""; 
 		this.tag=0;	

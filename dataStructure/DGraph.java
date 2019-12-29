@@ -59,18 +59,23 @@ public class DGraph implements graph{
 	@Override
 	public void connect(int src, int dest, double w) {
 		if(nodesMap.containsKey(src) && nodesMap.containsKey(dest)&&w>=0) {
+			//connect function can be called only if all the parameters are valid
 			mcCounter++;
 			EdgeData edgeToInsert = new EdgeData(src, dest, w);
 			if(edgesMap.containsKey(src)) {
-				
 				if(!edgesMap.get(src).containsKey(dest)) {
+					//if the src node exsits but the dset node is not
 					edgesMap.get(src).put(dest, edgeToInsert);	
-					
+					//add edge
+					//else - if both nodes exists, the edge exists. 
+					//nothing to do
 				}
 				
 			}
 			else {
+			//if the src node dosen't exist
 			HashMap<Integer,edge_data> innerEdgeHash = new HashMap<Integer,edge_data>(); 
+			//create new edge
 			innerEdgeHash.put(dest, edgeToInsert);
 			edgesMap.put(src, innerEdgeHash);
 			}
@@ -119,8 +124,10 @@ public class DGraph implements graph{
 			node_data  nd = nodesMap.get(key); 
 			nodesMap.remove(key);
 			edgesMap.remove(key);
-			edgesMap.entrySet().forEach(entry->{///return to this remove all the destinon node
-					
+			edgesMap.entrySet().forEach(entry->{
+			//////return to this remove all the destinon node
+			
+				//remove every node that is either a src node or a dest node in edgesMap
 					if(entry.getValue().containsKey(key)) {
 						entry.getValue().remove(key);
 						

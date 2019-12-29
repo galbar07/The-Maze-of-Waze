@@ -34,6 +34,11 @@ class Test_EdgeData {
 
 		if (this.ed.getWeight()!=10)
 			fail("getWeight function is not working");
+		try {
+			EdgeData newEdge=new EdgeData(destNode.getKey(), srcNode.getKey(), -1);
+		} catch (Exception e) {
+			fail("Should have throw an exception on negative weight");
+		}
 	}
 
 	@Test

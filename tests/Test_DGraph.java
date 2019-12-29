@@ -2,6 +2,9 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.xml.soap.Node;
 
 import org.junit.Before;
@@ -12,7 +15,6 @@ import org.junit.jupiter.api.Test;
 import dataStructure.DGraph;
 import dataStructure.EdgeData;
 import dataStructure.NodeData;
-import gui.Graph_Gui;
 import utils.Point3D;
 
 class Test_DGraph {
@@ -25,18 +27,54 @@ class Test_DGraph {
 	@Test
 	void milion_vertices() {
 		DGraph g = new DGraph();
-		
+		Point3D prev=new Point3D(100+Math.random()*800, 100+Math.random()*800);
+		NodeData nodePrev=new NodeData(prev);
+		g.addNode(nodePrev);
+		Point3D prev0=new Point3D(100+Math.random()*800, 100+Math.random()*800);
+		NodeData nodePrev0=new NodeData(prev0);
+		g.addNode(nodePrev0);
+		Point3D prev1=new Point3D(100+Math.random()*800, 100+Math.random()*800);
+		NodeData nodePrev1=new NodeData(prev1);
+		g.addNode(nodePrev1);
+		Point3D p1=new Point3D(100+Math.random()*800, 100+Math.random()*800);
+		NodeData nd=new NodeData(p1);
+		g.addNode(nd);
+		Point3D p=new Point3D(100+Math.random()*800, 100+Math.random()*800);
+		NodeData nd1=new NodeData(p);
+		g.addNode(nd1);
+		Point3D p2=new Point3D(100+Math.random()*800, 100+Math.random()*800);
+		NodeData nd2=new NodeData(p2);
+		g.addNode(nd2);
+		Point3D p3=new Point3D(100+Math.random()*800, 100+Math.random()*800);
+		NodeData nd3=new NodeData(p3);
+		g.addNode(nd3);
+		Point3D p4=new Point3D(100+Math.random()*800, 100+Math.random()*800);
+		NodeData nd4=new NodeData(p4);
+		g.addNode(nd4);
+		Point3D p5=new Point3D(100+Math.random()*800, 100+Math.random()*800);
+		NodeData nd5=new NodeData(p5);
+		g.addNode(nd5);
+		Point3D p6=new Point3D(100+Math.random()*800, 100+Math.random()*800);
+		NodeData nd6=new NodeData(p6);
+		g.addNode(nd6);
 		for (int i = 0; i < 1000000; i++) {
-			Point3D p1=new Point3D(100+Math.random()*800, 100+Math.random()*800);
-			Point3D p=new Point3D(100+Math.random()*800, 100+Math.random()*800);
-			NodeData nd=new NodeData(p1);
-			NodeData nd1=new NodeData(p);
-			g.addNode(nd);
-			g.addNode(nd1);
-			g.connect(nd1.getKey(), nd.getKey(), 0);
-
+		
+			Point3D p7=new Point3D(100+Math.random()*800, 100+Math.random()*800);
+			NodeData nd7=new NodeData(p7);
+			g.addNode(nd7);
+			
+			g.connect(nd7.getKey(), nd.getKey(), 1);
+			g.connect(nd7.getKey(), nd1.getKey(), 1);
+			g.connect(nd7.getKey(), nd2.getKey(), 1);
+			g.connect(nd7.getKey(), nd3.getKey(), 1);
+			g.connect(nd7.getKey(), nd4.getKey(), 1);
+			g.connect(nd7.getKey(), nd5.getKey(), 1);
+			g.connect(nd7.getKey(), nd6.getKey(), 1);
+			g.connect(nd7.getKey(), nodePrev.getKey(), 1);
+			g.connect(nd7.getKey(), nodePrev1.getKey(), 1);
+			g.connect(nd7.getKey(), nodePrev0.getKey(), 1);
+			
 		}
-	 
 	}
 	
 	@BeforeEach
@@ -102,6 +140,7 @@ class Test_DGraph {
 		this.graph.connect(n.getKey(), n1.getKey(), 1);
 		if (this.graph.getE(n.getKey()).size()!=1)
 			fail ("connect function is not working");
+		
 	}
 	
 	@Test
@@ -181,8 +220,16 @@ class Test_DGraph {
 	
 	@Test
 	void testGetMC() {
+		NodeData srcNode=new NodeData(pSrc);
+		graph=new DGraph();
+		graph.addNode(srcNode);
 		if (this.graph.getMC()==0)
 			fail("getMC function is not working");
+		int m=this.graph.getMC();
+		this.graph.removeNode(srcNode.getKey());
+		int n=this.graph.getMC();
+		if (n==m)
+			fail("mcCounter is not synchronized");
 	}
 
 }
