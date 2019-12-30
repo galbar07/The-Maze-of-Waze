@@ -30,6 +30,8 @@ import dataStructure.*;
 
 
 public class Graph_Gui extends JFrame implements ActionListener, MouseListener {
+	
+	private static final long serialVersionUID = 1L;
 	graph graph;
 	static int i=0;
 
@@ -76,7 +78,7 @@ public class Graph_Gui extends JFrame implements ActionListener, MouseListener {
 		this.addMouseListener(this);
 
 	}	
-	public void paint()
+	public void paint()//add text in case two edges go the same direction
 	{
 		StdDraw.setCanvasSize(800,800);
 		Font font = new Font("Arial", Font.BOLD, 20);
@@ -111,12 +113,13 @@ public class Graph_Gui extends JFrame implements ActionListener, MouseListener {
 				Point3D p2 = pointreturn(E.getSrc());
 				if(p1!=null && p2!=null) {
 					StdDraw.setPenRadius(0.005);
-					StdDraw.setPenColor(Color.BLACK);
+					StdDraw.setPenColor(Color.RED);
 					StdDraw.line(p1.x(), p1.y(),p2.x(), p2.y());
-					StdDraw.text((int)((p1.x()+p2.x())/2),(int)((p1.y()+p2.y())/2), Integer.toString((int)E.getWeight()));
-					StdDraw.setPenColor(Color.PINK);
-					StdDraw.setPenRadius(0.02);
-
+					Point3D T = new Point3D((int)((p1.x()+p2.x())/2),(int)((p1.y()+p2.y())/2));
+					StdDraw.setPenColor(Color.BLACK);
+					StdDraw.text((int)((T.x()+p1.x())/2),(int)((T.y()+p1.y())/2), Double.toString(E.getWeight()));
+					StdDraw.setPenColor(Color.CYAN);
+					StdDraw.setPenRadius(0.0345);
 					Point3D p4 = new Point3D((int)((p1.x()+p2.x())/2),(int)((p1.y()+p2.y())/2));
 
 
@@ -125,6 +128,7 @@ public class Graph_Gui extends JFrame implements ActionListener, MouseListener {
 						p4 = new Point3D(p5);
 					}
 					StdDraw.point(p4.x(),p4.y());
+					
 				}
 			}
 		}
@@ -138,16 +142,26 @@ public class Graph_Gui extends JFrame implements ActionListener, MouseListener {
 			gr.init(selected.getAbsolutePath());
 		}
 		this.graph = gr.copy();
+		paint();
 	}
 
 	private void Savetofile() {
+		try {
 		Graph_Algo gr = new Graph_Algo();
 		gr.init(this.graph);
 		JFileChooser jf = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		int returnV = jf.showOpenDialog(null);
 		if (returnV == JFileChooser.APPROVE_OPTION) {
 			gr.save(jf.getSelectedFile()+".txt");
-		}	
+			
+		}
+		JFrame Show = new JFrame();
+		JOptionPane.showMessageDialog(Show,"The Graph was successfully saved");
+		
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void Shortest_path_distance() {

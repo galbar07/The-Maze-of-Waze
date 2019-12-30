@@ -2,7 +2,11 @@ package dataStructure;
 
 import utils.Point3D;
 
-public class NodeData implements node_data, Comparable<node_data> {
+public class NodeData implements node_data, Comparable<node_data>,java.io.Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static int counter=1;
 	private int key;
 	private Point3D location=null;
@@ -20,7 +24,6 @@ public class NodeData implements node_data, Comparable<node_data> {
 		double y=p.y();
 		double z=p.z();
 		this.location=new Point3D(x,y,z);
-		//need to deep copy p
 		this.weight=Double.MAX_VALUE;
 		this.info=""; 
 		this.tag=0;	

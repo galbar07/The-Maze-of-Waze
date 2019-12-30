@@ -2,8 +2,12 @@ package dataStructure;
 
 import java.util.*;
 
-public class DGraph implements graph{
+public class DGraph implements graph,java.io.Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static int mcCounter=0;
 	public HashMap<Integer, node_data> nodesMap;
 	public HashMap<Integer,HashMap<Integer,edge_data> > edgesMap;
@@ -124,9 +128,7 @@ public class DGraph implements graph{
 			node_data  nd = nodesMap.get(key); 
 			nodesMap.remove(key);
 			edgesMap.remove(key);
-			edgesMap.entrySet().forEach(entry->{
-			//////return to this remove all the destinon node
-			
+			edgesMap.entrySet().forEach(entry->{			
 				//remove every node that is either a src node or a dest node in edgesMap
 					if(entry.getValue().containsKey(key)) {
 						entry.getValue().remove(key);

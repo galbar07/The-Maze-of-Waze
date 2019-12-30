@@ -30,6 +30,7 @@ public class Test_Gui {
         g.addNode(n3);
         
         g.connect(1, 2, 10);
+        g.connect(2, 1, 100);
         g.connect(2, 3, 40);
         g.connect(3, 1, 100);
       

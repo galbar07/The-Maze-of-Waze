@@ -123,14 +123,9 @@ class Test_Graph_Algo {
 	@Test
 	void testSave() {
 		
-		Graph_Gui g = new Graph_Gui(graph);
-		g.setVisible(true);
+		gr.init(graph);
+		gr.save("test.txt");
+	
 	}
-	
-	
-//	@AfterAll
-//	void testInit() {
-//		gr.init("test.txt");
-//	}
 	
 }

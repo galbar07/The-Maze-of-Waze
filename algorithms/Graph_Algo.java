@@ -229,7 +229,6 @@ public class Graph_Algo implements graph_algorithms,java.io.Serializable{
 		}
 		List.add(this.graph_algo.getNode(src));
 		Collections.reverse(List);
-		///////??????????//////////
 		if (!List.contains(this.graph_algo.getNode(dest)))	
 			//if the list doesn't contain dest- there is no path between src to it
 			return null;
@@ -293,10 +292,10 @@ public class Graph_Algo implements graph_algorithms,java.io.Serializable{
 		return copy;
 	}
 /**
- * 
+ * //serialize the object to a .txt file
  * @param file_name
  */
-	//add info here
+	
 	private void serialize(String file_name) {
 		try
 		{    
@@ -315,10 +314,9 @@ public class Graph_Algo implements graph_algorithms,java.io.Serializable{
 		}               
 	}
 /**
- *
+ * deserialize the object from a .txt file
  * @param file_name
  */
-	//add info here
 	private void deserialize(String file_name) {
 		graph_algo = new DGraph();
 		try

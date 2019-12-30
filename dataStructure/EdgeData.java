@@ -1,7 +1,11 @@
 package dataStructure;
 
-public class EdgeData implements edge_data {
+public class EdgeData implements edge_data,java.io.Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int src;
 	private int dest;
 	private double weight;
