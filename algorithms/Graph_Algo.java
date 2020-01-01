@@ -34,7 +34,7 @@ public class Graph_Algo implements graph_algorithms,java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -8972207312025958107L;
-	 graph graph_algo;
+	private graph graph_algo;
 
 	public Graph_Algo() {
 		graph_algo = new DGraph();

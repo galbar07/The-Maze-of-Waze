@@ -32,7 +32,7 @@ import dataStructure.*;
 public class Graph_Gui extends JFrame implements ActionListener, MouseListener {
 	
 	private static final long serialVersionUID = 1L;
-	graph graph;
+	private graph graph;
 	static int i=0;
 
 	public Graph_Gui(DGraph graph) {
