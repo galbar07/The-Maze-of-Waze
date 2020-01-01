@@ -23,7 +23,10 @@ public class EdgeData implements edge_data,java.io.Serializable{
 	public EdgeData(int src, int dest, double weight) {
 		this.src=src;
 		this.dest=dest;
-		this.weight=weight;
+		if (weight<0)
+			throw new RuntimeException("The weight must be positive");
+		else
+			this.weight=weight;
 		this.info="";
 	}
 	

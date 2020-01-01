@@ -39,13 +39,18 @@ public class Graph_Algo implements graph_algorithms,java.io.Serializable{
 	public Graph_Algo() {
 		graph_algo = new DGraph();
 	}
+	
+	public Graph_Algo(graph g) {
+		graph_algo = g;
+	}
+	
 	/**
 	 * Init this set of algorithms on the parameter - graph.
 	 * @param g
 	 */
 	@Override
 	public void init(graph g) {
-		graph_algo = (DGraph) g;
+		graph_algo =  g;
 	}
 	/**
 	 * Init a graph from file

@@ -3,34 +3,55 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="dataStructure.DGraph" project="code" file="/code/dataStructure/DGraph.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="355" width="364" x="26" y="393"/>    
+    <position height="413" width="366" x="85" y="359"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="2" language="java" name="dataStructure.edge_data" project="code" 
-    file="/code/dataStructure/edge_data.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="247" width="213" x="734" y="303"/>    
+  <interface id="2" language="java" name="dataStructure.graph" project="code" file="/code/dataStructure/graph.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="311" width="329" x="100" y="14"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="3" language="java" name="dataStructure.graph" project="code" file="/code/dataStructure/graph.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="208" y="171"/>    
+  <interface id="3" language="java" name="algorithms.graph_algorithms" project="code" 
+    file="/code/algorithms/graph_algorithms.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="943" y="139"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <realization id="4">    
-    <end type="SOURCE" refId="1"/>    
+  <class id="4" language="java" name="algorithms.Graph_Algo" project="code" file="/code/algorithms/Graph_Algo.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="397" width="397" x="711" y="303"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="5">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="6" name="graph_algo"/>      
+      <multiplicity id="7" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="8">    
+    <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="3"/>  
+  </realization>  
+  <realization id="9">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

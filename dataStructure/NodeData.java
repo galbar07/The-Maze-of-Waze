@@ -69,8 +69,6 @@ public class NodeData implements node_data, Comparable<node_data>,java.io.Serial
 	 */
 	@Override
 	public void setWeight(double w) {
-		if (w<0)
-			throw new RuntimeException("The weight must be positive");
 		this.weight=w;
 	}
 	/**
