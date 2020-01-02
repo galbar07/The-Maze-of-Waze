@@ -36,7 +36,14 @@ public class Test_Gui {
       
 		Graph_GUI gui = new Graph_GUI(g);
 
-		gui.setVisible(true);
+		gui.setVisible(true);	
+		
+		
+		
+		
+		
+		
+	
 		
 		
 		

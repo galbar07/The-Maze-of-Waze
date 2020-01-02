@@ -29,14 +29,18 @@ import utils.StdDraw;
 import dataStructure.*;
 
 
-public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
-	
+public class Graph_GUI extends JFrame implements ActionListener, MouseListener,Runnable {
+
 	private static final long serialVersionUID = 1L;
 	private graph graph;
 	static int i=0;
+	static int mc=0;
 
 	public Graph_GUI(graph graph) {
 		this.graph = graph;
+		mc = this.graph.getMC();
+		Thread t = new Thread(this);
+		t.start();
 		initGUI();
 	}
 
@@ -80,6 +84,7 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
 	}	
 	public void paint()//add text in case two edges go the same direction
 	{
+		System.out.println("paint the graph");
 		StdDraw.setCanvasSize(800,800);
 		Font font = new Font("Arial", Font.BOLD, 20);
 
@@ -128,7 +133,7 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
 						p4 = new Point3D(p5);
 					}
 					StdDraw.point(p4.x(),p4.y());
-					
+
 				}
 			}
 		}
@@ -147,17 +152,17 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
 
 	private void Savetofile() {
 		try {
-		Graph_Algo gr = new Graph_Algo();
-		gr.init(this.graph);
-		JFileChooser jf = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-		int returnV = jf.showOpenDialog(null);
-		if (returnV == JFileChooser.APPROVE_OPTION) {
-			gr.save(jf.getSelectedFile()+".txt");
-			
-		}
-		JFrame Show = new JFrame();
-		JOptionPane.showMessageDialog(Show,"The Graph was successfully saved");
-		
+			Graph_Algo gr = new Graph_Algo();
+			gr.init(this.graph);
+			JFileChooser jf = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+			int returnV = jf.showOpenDialog(null);
+			if (returnV == JFileChooser.APPROVE_OPTION) {
+				gr.save(jf.getSelectedFile()+".txt");
+
+			}
+			JFrame Show = new JFrame();
+			JOptionPane.showMessageDialog(Show,"The Graph was successfully saved");
+
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -328,6 +333,23 @@ public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
 		break;
 		}
 	}
+	@Override
+	public void run() {
+		while(true) {
+			if(graph.getMC() != mc) {
+				mc=graph.getMC();
+				synchronized (this) {
+					paint();		
+				}						
+			}
+			try {
+				Thread.sleep(500);
+			}
+			catch (Exception e) {
+			}
+		}
+	}
 }
+
 
 
