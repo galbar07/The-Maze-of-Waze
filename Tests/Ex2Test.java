@@ -75,7 +75,7 @@ class Ex2Test {
 	        g.connect(2, 3, 40);
 	        g.connect(3, 1, 100);
 	      
-			Graph_Gui gui = new Graph_Gui(g);
+			Graph_GUI gui = new Graph_GUI(g);
 
 			gui.setVisible(true);
 		    return true;

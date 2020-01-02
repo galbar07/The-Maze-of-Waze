@@ -18,7 +18,7 @@ import dataStructure.DGraph;
 import dataStructure.EdgeData;
 import dataStructure.NodeData;
 import dataStructure.node_data;
-import gui.Graph_Gui;
+import gui.Graph_GUI;
 import utils.Point3D;
 
 class Test_Graph_Algo {

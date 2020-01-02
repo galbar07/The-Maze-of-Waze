@@ -29,13 +29,13 @@ import utils.StdDraw;
 import dataStructure.*;
 
 
-public class Graph_Gui extends JFrame implements ActionListener, MouseListener {
+public class Graph_GUI extends JFrame implements ActionListener, MouseListener {
 	
 	private static final long serialVersionUID = 1L;
 	private graph graph;
 	static int i=0;
 
-	public Graph_Gui(graph graph) {
+	public Graph_GUI(graph graph) {
 		this.graph = graph;
 		initGUI();
 	}

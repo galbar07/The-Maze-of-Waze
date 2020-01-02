@@ -7,7 +7,7 @@ import dataStructure.DGraph;
 import dataStructure.NodeData;
 import dataStructure.graph;
 import dataStructure.node_data;
-import gui.Graph_Gui;
+import gui.Graph_GUI;
 import utils.Point3D;
 
 public class Test_Gui {
@@ -34,7 +34,7 @@ public class Test_Gui {
         g.connect(2, 3, 40);
         g.connect(3, 1, 100);
       
-		Graph_Gui gui = new Graph_Gui(g);
+		Graph_GUI gui = new Graph_GUI(g);
 
 		gui.setVisible(true);
 		
