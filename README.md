@@ -12,11 +12,11 @@
 #
 #             About
 ```
-This program represent undirected graph which composed of Vertices and Edges, and let the user build his own graph and preform varies algorithams on his own graph such as find the shorthest path ,  is the graph connected and more!! 
+This program represents undirected graph which composed of Vertices and Edges, and lets the user build his own graph and preform varies algorithams on it such as find the shorthest path,  is the graph connected and more!! 
 ```
 
 #  DataStructure
-The datastructure that the graph is composed of is 2 hashmaps one for vartices and the other for edges 
+The datastructure that the graph is composed of is 2 hashmaps: one for vartices and the other for edges 
 ```
 Example for triangle graph:
 
@@ -34,7 +34,7 @@ Example for triangle graph:
 
 # Gui
 ```
-The Gui part let the user draw the graph and run complicated algorithams on it.
+The Gui part lets the user draw the graph and run complicated algorithams on it.
 Example:
 ```
 
