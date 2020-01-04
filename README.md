@@ -38,7 +38,7 @@ The Gui part let the user draw the graph and run complicated algorithams on it.
 Example:
 ```
 
-![Image](images/Capture4.JPG)    
+![Image](images/Capture7.JPG)    
 
 
 
