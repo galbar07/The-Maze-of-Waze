@@ -6,7 +6,7 @@
 ![watcher](https://img.shields.io/github/watchers/galbar07/Assigment-2-OP?label=Watcher&style=social)
 
 # The Maze of Waze:
-![Image](waze_maze.PNG)    
+![Image](images/waze_maze.PNG)    
 
 
 #
@@ -38,7 +38,7 @@ The Gui part let the user draw the graph and run complicated algorithams on it.
 Example:
 ```
 
-![Image](Capture1.JPG)    
+![Image](images/Capture4.JPG)    
 
 
 
